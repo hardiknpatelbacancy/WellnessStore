@@ -29,7 +29,7 @@ export default async function AdminOrdersPage() {
             <div>
               <p className="font-semibold">#{order.id.slice(0, 8)}</p>
               <p className="text-sm text-muted-foreground">
-                Customer: {order.profiles?.full_name ?? "Unknown"}
+                Customer: {order.profiles?.[0]?.full_name ?? "Unknown"}
               </p>
               <p className="text-sm">Total: ${Number(order.total_amount).toFixed(2)}</p>
             </div>
