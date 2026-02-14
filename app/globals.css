@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 30 40% 98%;
+  --foreground: 220 20% 15%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 20% 15%;
+  --primary: 172 73% 40%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 38 95% 57%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 210 20% 95%;
+  --muted-foreground: 220 10% 45%;
+  --accent: 198 93% 60%;
+  --accent-foreground: 222 47% 11%;
+  --border: 220 16% 88%;
+  --input: 220 16% 88%;
+  --ring: 172 73% 40%;
+}
+
+.dark {
+  --background: 220 26% 10%;
+  --foreground: 210 40% 96%;
+  --card: 220 25% 12%;
+  --card-foreground: 210 40% 96%;
+  --primary: 172 70% 45%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 38 92% 55%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 222 20% 18%;
+  --muted-foreground: 215 20% 70%;
+  --accent: 198 85% 55%;
+  --accent-foreground: 222 47% 11%;
+  --border: 217 19% 22%;
+  --input: 217 19% 22%;
+  --ring: 172 70% 45%;
+}
+
+body {
+  @apply bg-background text-foreground;
+}
+
+.hero-gradient {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.35), transparent 35%),
+    radial-gradient(circle at 80% 10%, rgba(14, 165, 233, 0.3), transparent 30%),
+    radial-gradient(circle at 50% 80%, rgba(251, 191, 36, 0.28), transparent 30%);
+}
