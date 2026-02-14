@@ -19,7 +19,7 @@ async function createAdminUser(formData: FormData) {
     email,
     password,
     email_confirm: true,
-    user_metadata: { full_name, role: "admin" }
+    user_metadata: { full_name: fullName, role: "admin" }
   });
   if (error) {
     throw new Error(error.message);
@@ -98,4 +98,3 @@ export default async function AdminUsersPage() {
     </div>
   );
 }
-
