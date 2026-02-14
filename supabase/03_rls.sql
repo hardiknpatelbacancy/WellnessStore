@@ -20,6 +20,7 @@ alter table public.products enable row level security;
 alter table public.orders enable row level security;
 alter table public.order_items enable row level security;
 alter table public.contact_messages enable row level security;
+-- If you add addresses, enable RLS there too (see supabase/05_addresses_checkout.sql).
 
 -- PROFILES
 create policy "profiles_admin_all"

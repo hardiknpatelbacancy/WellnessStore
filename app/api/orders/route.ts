@@ -14,7 +14,11 @@ export async function POST(request: Request) {
   } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const body = (await request.json()) as { items: Item[] };
+  const body = (await request.json()) as {
+    items: Item[];
+    address_id?: string;
+    shipping_address?: any;
+  };
   if (!body.items?.length) {
     return NextResponse.json({ error: "No items" }, { status: 400 });
   }
@@ -23,7 +27,13 @@ export async function POST(request: Request) {
 
   const { data: order, error: orderError } = await supabase
     .from("orders")
-    .insert({ user_id: user.id, total_amount: totalAmount, status: "pending" })
+    .insert({
+      user_id: user.id,
+      total_amount: totalAmount,
+      status: "pending",
+      address_id: body.address_id ?? null,
+      shipping_address: body.shipping_address ?? null
+    })
     .select("id")
     .single();
   if (orderError) return NextResponse.json({ error: orderError.message }, { status: 400 });

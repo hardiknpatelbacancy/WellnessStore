@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, BadgeCheck, Leaf, Sparkles } from "lucide-react";
 import { createClient } from "@/lib/supabase-server";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -28,7 +29,9 @@ export default async function HomePage() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Link href="/shop">
-              <Button size="lg">Start Shopping</Button>
+              <Button size="lg">
+                Start Shopping <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </Link>
             <Link href="/contact">
               <Button size="lg" variant="secondary">
@@ -43,9 +46,18 @@ export default async function HomePage() {
             <CardDescription>Simple ingredients. Clear pricing. Fast ordering.</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
-            <div className="rounded-lg bg-primary/10 p-4">Trusted wellness brands</div>
-            <div className="rounded-lg bg-secondary/20 p-4">Category-first shopping experience</div>
-            <div className="rounded-lg bg-accent/20 p-4">Secure auth and order history</div>
+            <div className="flex items-center gap-3 rounded-lg bg-primary/10 p-4">
+              <BadgeCheck className="h-5 w-5 text-primary" />
+              <span>Trusted wellness brands</span>
+            </div>
+            <div className="flex items-center gap-3 rounded-lg bg-secondary/20 p-4">
+              <Leaf className="h-5 w-5 text-foreground" />
+              <span>Clean, category-first shopping</span>
+            </div>
+            <div className="flex items-center gap-3 rounded-lg bg-accent/20 p-4">
+              <Sparkles className="h-5 w-5 text-foreground" />
+              <span>Secure auth and order history</span>
+            </div>
           </CardContent>
         </Card>
       </section>
@@ -54,7 +66,7 @@ export default async function HomePage() {
         <h2 className="mb-6 text-2xl font-bold">Featured Products</h2>
         <div className="grid gap-4 md:grid-cols-3">
           {(featured ?? []).map((product) => (
-            <Card key={product.id} className="overflow-hidden">
+            <Card key={product.id} className="overflow-hidden transition hover:-translate-y-0.5 hover:shadow-md">
               <div className="relative h-44 w-full">
                 <Image
                   src={product.image_url ?? "https://picsum.photos/600/400"}

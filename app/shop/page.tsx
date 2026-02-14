@@ -19,6 +19,9 @@ export default async function ShopPage() {
           <Button variant="outline">My Orders</Button>
         </Link>
       </div>
+      <p className="text-sm text-muted-foreground">
+        Add items to your basket, then checkout from the basket page.
+      </p>
       <ShopClient
         categories={(categories ?? []) as Category[]}
         products={(products ?? []) as Product[]}

@@ -2,6 +2,15 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase-server";
 import { Button } from "@/components/ui/button";
 
+const STATUS_OPTIONS = [
+  "pending",
+  "approved",
+  "processing",
+  "completed",
+  "cancelled",
+  "returned"
+] as const;
+
 async function updateOrderStatus(formData: FormData) {
   "use server";
   const supabase = await createClient();
@@ -10,6 +19,7 @@ async function updateOrderStatus(formData: FormData) {
     .update({ status: String(formData.get("status") ?? "pending") })
     .eq("id", String(formData.get("id")));
   revalidatePath("/admin/orders");
+  revalidatePath("/shop/orders");
 }
 
 export default async function AdminOrdersPage() {
@@ -45,10 +55,11 @@ export default async function AdminOrdersPage() {
                 defaultValue={order.status}
                 className="h-10 rounded-md border border-input bg-background px-3 text-sm"
               >
-                <option value="pending">pending</option>
-                <option value="processing">processing</option>
-                <option value="completed">completed</option>
-                <option value="cancelled">cancelled</option>
+                {STATUS_OPTIONS.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
               </select>
               <Button type="submit" size="sm">
                 Save
