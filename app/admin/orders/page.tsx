@@ -19,6 +19,12 @@ export default async function AdminOrdersPage() {
     .select("id,status,total_amount,created_at,profiles(full_name),order_items(quantity,products(name))")
     .order("created_at", { ascending: false });
 
+  // Supabase join shapes can be inferred as arrays depending on relationship metadata.
+  const getProfileFullName = (profiles: unknown) =>
+    Array.isArray(profiles) ? profiles[0]?.full_name : (profiles as any)?.full_name;
+  const getProductName = (products: unknown) =>
+    Array.isArray(products) ? products[0]?.name : (products as any)?.name;
+
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">Manage Orders</h1>
@@ -29,7 +35,7 @@ export default async function AdminOrdersPage() {
             <div>
               <p className="font-semibold">#{order.id.slice(0, 8)}</p>
               <p className="text-sm text-muted-foreground">
-                Customer: {order.profiles?.[0]?.full_name ?? "Unknown"}
+                Customer: {getProfileFullName(order.profiles) ?? "Unknown"}
               </p>
               <p className="text-sm">Total: ${Number(order.total_amount).toFixed(2)}</p>
             </div>
@@ -52,7 +58,7 @@ export default async function AdminOrdersPage() {
           <ul className="mt-3 text-sm text-muted-foreground">
             {(order.order_items ?? []).map((item, idx) => (
               <li key={idx}>
-                {item.products?.name} x {item.quantity}
+                {getProductName(item.products) ?? "Product"} x {item.quantity}
               </li>
             ))}
           </ul>
